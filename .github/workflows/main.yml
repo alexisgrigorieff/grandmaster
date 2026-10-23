@@ -1,0 +1,22 @@
+name: Unpack project
+on:
+  push:
+    paths: ["grandmaster.zip", ".github/workflows/**"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          if [ ! -f grandmaster.zip ]; then echo "No zip found - already unpacked?"; exit 0; fi
+          unzip -o grandmaster.zip -d /tmp/unpacked
+          cp -a /tmp/unpacked/grandmaster/. .
+          git rm -q grandmaster.zip
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Unpack project files"
+          git push
