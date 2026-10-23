@@ -1,0 +1,30 @@
+# Minimal Supabase CLI configuration, so `npx supabase start` (local Docker
+# stack) and `npx supabase db push` (apply migrations to a hosted project) work
+# from this repository. See docs/SUPABASE_SETUP.md.
+project_id = "grandmaster"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public"]
+
+[db]
+port = 54322
+
+[realtime]
+enabled = true
+
+[storage]
+enabled = true
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:3000/**"]
+jwt_expiry = 3600
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+# Local development: no confirmation email needed.
+enable_confirmations = false
